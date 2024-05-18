@@ -1,20 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
+import "milligram";
+import {useState} from "react";
+import LoginForm from "./Components/LoginForm";
+import UserPanel from "./Components/UserPanel";
 
 function App() {
-    let email = 'asdafasdfas@agh.edu.pl';
+    const [loggedIn, setLoggedIn] = useState()
 
-    const handleChange = (e) => {
-        console.log(e.target.value);
+    const handleLogin = (email) => {
+        if (email.includes("@")){
+            setLoggedIn(email)
+        } else {
+            alert("Bledny email")
+        }
     }
 
-    return (
-        <div>
-            <h1>System do zapisów na zajęcia</h1>
-            <h2>Twój e-mail to {email}</h2>
-            <input type="text" onChange={handleChange}/>
-        </div>
-    );
+    const handleLogout = () => {
+        setLoggedIn(null)
+    }
+
+    return <div>
+        <h1>System do zapisów na zajęcia</h1>
+        {
+            loggedIn
+                ? <UserPanel username={loggedIn} handleLogout={handleLogout}/>
+                : <LoginForm handleLogin={handleLogin} buttonLabel="Zapisz sie"/>
+        }
+    </div>
+
 }
 
 export default App;

@@ -7,6 +7,7 @@ import UserPanel from "./Components/UserPanel";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState()
+    const [meetings, setMeetings] = useState([])
 
     const handleLogin = (email) => {
         if (email.includes("@")){

@@ -3,9 +3,17 @@ import {useState} from "react";
 export default function NewMeetingForm({onSubmit}) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-
-    function submit(event) {
-        event.preventDefault();
+    const [error, setError] = useState('')
+    function submit(e) {
+        e.preventDefault();
+        if (title == ''){
+            setError("Tytul nie moze byc pusty")
+            return;
+        }
+        if (description == ''){
+            setError("Opis nie moze byc pusty")
+            return;
+        }
         onSubmit({title, description});
     }
 
@@ -19,6 +27,7 @@ export default function NewMeetingForm({onSubmit}) {
             <textarea value={description}
                       onChange={(e) => setDescription(e.target.value)}></textarea>
             <button>Dodaj</button>
+            {error}
         </form>
     );
 }
